@@ -6,9 +6,11 @@ mqttServer.listen(1883, () => console.log('MQTT 브로커 동작중 (1883 포트
 
 // --- [2] Express HTTP API 서버 ---
 const express = require('express');
+const cors = require('cors');
 const axios = require('axios');
 const fs = require('fs');
 const app = express();
+app.use(cors());
 
 const MQTT_TOPIC = 'iot/stretch';
 const FITBIT_TOKEN_PATH = './secret.txt';
