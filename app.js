@@ -18,6 +18,15 @@ var auth_code;
 var authorizationCode;
 var ACCESS_TOKEN;
 
+const dumy_stress_data = [20,40,50,80,10];
+const dumy_sleep_data = {
+  "hour" : 6,
+  "minutes" : 42,
+  "avgHours" : 7,
+  "avgMins" : 30,
+  "restAdvice" : 5
+}
+
 function loadAccessToken() {
   const jsonString = fs.readFileSync(FITBIT_TOKEN_PATH, 'utf-8');
   const data = JSON.parse(jsonString);
@@ -95,8 +104,8 @@ app.get('/api/stress', async (req, res) => {
     })
     .then(response => {
       console.log(response.data);
+      res.send(dumy_stress_data);
       response_stress = response.data.hrv[0].value.dailyRmssd;
-      res.send(`스트레스가 ${response_stress} 만큼 잤습니다.`);
     })
     .catch(error => {
       console.error(error.response?.data || error.message);
@@ -118,7 +127,7 @@ app.get('/api/sleep', async (req, res) => {
     .then(response => {
       console.log(response.data);
       response_sleep_time = response.data.summary.totalMinutesAsleep;
-      res.send(`전날 ${response_sleep_time} 만큼 잤습니다.`);
+      res.send(dumy_sleep_data);
     })
     .catch(error => {
       console.error(error.response?.data || error.message);
